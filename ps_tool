@@ -1,0 +1,32 @@
+#!/bin/bash
+SOLVING_PROCEDURE=풀이과정.md
+LANGUAGE_EXT=cpp
+
+function new_problem() {
+	DIR_NAME=$1
+
+	mkdir -p $DIR_NAME
+	sed "s/problem_name/$DIR_NAME/" ./$SOLVING_PROCEDURE > ./$DIR_NAME/$SOLVING_PROCEDURE
+	touch ./$DIR_NAME/solution.$LANGUAGE_EXT
+}
+
+
+case $1 in
+	help)
+	cat <<HELP
+Usage: ./ps_tool COMMAND
+
+COMMAND			Description
+help			show this message
+new problem_name	create new problem solving necessaries.
+
+HELP
+	;;
+	new)
+	shift 1
+	new_problem $@
+	;;
+	*)
+	echo "'$1' command is not supported"
+	;;
+esac
